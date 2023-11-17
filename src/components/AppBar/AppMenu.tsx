@@ -1,66 +1,36 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
+  HomeFilled,
+  FolderFilled,
+  TagsFilled,
+  ThunderboltFilled,
 } from "@ant-design/icons";
+
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 
 const items: MenuProps["items"] = [
   {
-    label: "Navigation One",
-    key: "mail",
-    icon: <MailOutlined />,
+    label: <NavLink to={"/"}>Home</NavLink>,
+    key: "home",
+    icon: <HomeFilled />,
   },
   {
-    label: "Navigation Two",
-    key: "app",
-    icon: <AppstoreOutlined />,
-    disabled: true,
+    label: <NavLink to={"/catalog"}>Catalog</NavLink>,
+    key: "catalog",
+    icon: <FolderFilled />,
   },
   {
-    label: "Navigation Three - Submenu",
-    key: "SubMenu",
-    icon: <SettingOutlined />,
-    children: [
-      {
-        type: "group",
-        label: "Item 1",
-        children: [
-          {
-            label: "Option 1",
-            key: "setting:1",
-          },
-          {
-            label: "Option 2",
-            key: "setting:2",
-          },
-        ],
-      },
-      {
-        type: "group",
-        label: "Item 2",
-        children: [
-          {
-            label: "Option 3",
-            key: "setting:3",
-          },
-          {
-            label: "Option 4",
-            key: "setting:4",
-          },
-        ],
-      },
-    ],
+    label: <NavLink to={"/brands"}>Brands</NavLink>,
+    key: "brands",
+    icon: <TagsFilled />,
   },
   {
-    label: (
-      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        Navigation Four - Link
-      </a>
-    ),
-    key: "alipay",
+    label: <NavLink to={"/orders"}>Orders</NavLink>,
+    key: "orders",
+    icon: <ThunderboltFilled />,
   },
 ];
 

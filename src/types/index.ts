@@ -3,6 +3,11 @@ export interface ICategory {
   name: string;
 }
 
+export interface IBrand {
+  id: number;
+  name: string;
+}
+
 export interface IProduct {
   id: number;
   name: string;
