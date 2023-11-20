@@ -1,19 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { getAllProducts } from "../../redux/products/operations";
+import {
+  getAllProducts,
+  getProductById,
+  removeProduct,
+} from "../../redux/products/operations";
 import { selectAllProducts } from "../../redux/products/selectors";
-import { Table } from "antd";
+import { Button, Popconfirm, Space, Table } from "antd";
+import { selectCategory } from "../../redux/categories/selectors";
+import { IProduct } from "../../types";
+import type { ColumnsType } from "antd/es/table";
+
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import { setCurrentProduct } from "../../redux/products/slice";
+import ProductEditModal from "./ProductEditModal";
+
+interface DataType {
+  key: string;
+  id: number;
+  name: string;
+  price: number;
+}
 
 const ProductTable = () => {
+  const [isModalEditShow, setIsModalEditShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(selectAllProducts);
 
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+  const currentCategory = useSelector(selectCategory);
 
-  const columns = [
+  useEffect(() => {
+    dispatch(
+      getAllProducts({ category_id: Number(currentCategory?.id), page: 0 })
+    );
+  }, [dispatch, currentCategory]);
+
+  const columns: ColumnsType<any> = [
     {
       title: "Id",
       dataIndex: "id",
@@ -25,14 +48,38 @@ const ProductTable = () => {
       key: "name",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
       title: "Price",
       dataIndex: "price",
       key: "price",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_: any, record: DataType) => (
+        <Space size="middle">
+          <Popconfirm
+            title="Delete the product"
+            description="Are you sure to delete this product?"
+            onConfirm={() => dispatch(removeProduct(record.id))}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" icon={<CloseOutlined />} />
+          </Popconfirm>
+
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            onClick={async () => {
+              const product = await dispatch(
+                getProductById(record.id)
+              ).unwrap();
+              dispatch(setCurrentProduct(product));
+              setIsModalEditShow(true);
+            }}
+          />
+        </Space>
+      ),
     },
   ];
 
@@ -46,9 +93,13 @@ const ProductTable = () => {
   });
 
   return (
-    <div>
-      <Table columns={columns} dataSource={dataSource} />
-    </div>
+    <>
+      <Table columns={columns} dataSource={dataSource} size="small" />
+      <ProductEditModal
+        isModalEditShow={isModalEditShow}
+        setIsModalEditShow={setIsModalEditShow}
+      />
+    </>
   );
 };
 

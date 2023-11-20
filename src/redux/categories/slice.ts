@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import {
@@ -11,7 +11,7 @@ import { ICategory } from "../../types/index";
 interface IInitialState {
   items: ICategory[];
   isLoading: boolean;
-  error: any;
+  error: Error | any;
   currentCategory: ICategory | null;
 }
 
@@ -25,54 +25,66 @@ const initialState: IInitialState = {
 export const categorySlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCategory(state, action) {
+      console.log(action.payload);
+
+      state.currentCategory = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
-      .addCase(getAllCategories.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         getAllCategories.fulfilled,
         (state, action: PayloadAction<ICategory[]>) => {
           state.items = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
-      .addCase(getAllCategories.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(getCategoryById.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         getCategoryById.fulfilled,
         (state, action: PayloadAction<ICategory>) => {
           state.currentCategory = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
-      .addCase(getCategoryById.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(removeCategory.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         removeCategory.fulfilled,
         (state, action: PayloadAction<number>) => {
           state.items = state.items.filter(({ id }) => id !== action.payload);
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllCategories.pending,
+          getCategoryById.pending,
+          removeCategory.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllCategories.rejected,
+          getCategoryById.rejected,
+          removeCategory.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllCategories.fulfilled,
+          getCategoryById.fulfilled,
+          removeCategory.fulfilled
+        ),
+        (state) => {
           state.error = null;
           state.isLoading = false;
         }
-      )
-      .addCase(removeCategory.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      }),
+      ),
 });
 
+export const { setCurrentCategory } = categorySlice.actions;
 export const categorySliceReducer = categorySlice.reducer;

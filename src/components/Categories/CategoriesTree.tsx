@@ -7,6 +7,7 @@ import { Tree, TreeProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 // import { DataNode } from "antd/es/tree";
 import { ICategory } from "../../types";
+import { setCurrentCategory } from "../../redux/categories/slice";
 
 const treeData = (items: ICategory[]) => {
   return [
@@ -32,7 +33,11 @@ const CategoriesTree = () => {
   }, [dispatch]);
 
   const onSelect: TreeProps["onSelect"] = (selectedKeys, info) => {
-    console.log("selected", selectedKeys, info);
+    const category = categories.find(
+      (category) => category.id === selectedKeys[0]
+    );
+
+    dispatch(setCurrentCategory(category));
   };
 
   const onCheck: TreeProps["onCheck"] = (checkedKeys, info) => {

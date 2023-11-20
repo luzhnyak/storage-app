@@ -7,7 +7,7 @@ import { IBrand } from "../../types/index";
 interface IInitialState {
   items: IBrand[];
   isLoading: boolean;
-  error: any;
+  error: Error | any;
   currentBrand: IBrand | null;
 }
 
@@ -28,24 +28,18 @@ export const brandSlice = createSlice({
         getAllBrands.fulfilled,
         (state, action: PayloadAction<IBrand[]>) => {
           state.items = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
       .addCase(
         getBrandById.fulfilled,
         (state, action: PayloadAction<IBrand>) => {
           state.currentBrand = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
       .addCase(
         removeBrand.fulfilled,
         (state, action: PayloadAction<number>) => {
           state.items = state.items.filter(({ id }) => id !== action.payload);
-          state.error = null;
-          state.isLoading = false;
         }
       )
       .addMatcher(
@@ -67,6 +61,17 @@ export const brandSlice = createSlice({
         (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllBrands.fulfilled,
+          getBrandById.fulfilled,
+          removeBrand.fulfilled
+        ),
+        (state) => {
+          state.error = null;
+          state.isLoading = false;
         }
       ),
 });

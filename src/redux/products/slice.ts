@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getAllProducts, getProductById, removeProduct } from "./operations";
@@ -21,54 +21,64 @@ const initialState: IInitialState = {
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentProduct(state, action) {
+      state.currentProduct = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
-      .addCase(getAllProducts.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         getAllProducts.fulfilled,
         (state, action: PayloadAction<IProduct[]>) => {
           state.items = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
-      .addCase(getAllProducts.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(getProductById.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         getProductById.fulfilled,
         (state, action: PayloadAction<IProduct>) => {
           state.currentProduct = action.payload;
-          state.error = null;
-          state.isLoading = false;
         }
       )
-      .addCase(getProductById.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(removeProduct.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         removeProduct.fulfilled,
         (state, action: PayloadAction<number>) => {
           state.items = state.items.filter(({ id }) => id !== action.payload);
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllProducts.pending,
+          getProductById.pending,
+          removeProduct.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllProducts.rejected,
+          getProductById.rejected,
+          removeProduct.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllProducts.fulfilled,
+          getProductById.fulfilled,
+          removeProduct.fulfilled
+        ),
+        (state) => {
           state.error = null;
           state.isLoading = false;
         }
-      )
-      .addCase(removeProduct.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      }),
+      ),
 });
 
+export const { setCurrentProduct } = productSlice.actions;
 export const productSliceReducer = productSlice.reducer;
