@@ -9,10 +9,15 @@ import {
 import { selectAllProducts } from "../../redux/products/selectors";
 import { Button, Popconfirm, Space, Table } from "antd";
 import { selectCategory } from "../../redux/categories/selectors";
-import { IOrderProduct, IProduct, IQueryProducts } from "../../types";
+import { IOrderProduct, IQueryProducts } from "../../types/types";
 import type { ColumnsType } from "antd/es/table";
 
-import { CloseOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  EyeOutlined,
+  EditOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import { setCurrentProduct } from "../../redux/products/slice";
 import ProductEditModal from "./ProductEditModal";
 import { addOrderProduct } from "../../redux/orders/operations";
@@ -53,7 +58,7 @@ const ProductTable = () => {
   const handleClickAddToOrder = async (id: number) => {
     if (!currentOrder) return;
 
-    const newOrderProduct: Omit<IOrderProduct, "id"> = {
+    const newOrderProduct: Omit<IOrderProduct, "id" | "name"> = {
       order_id: currentOrder.id,
       product_id: id,
       quantity: 1,
@@ -98,6 +103,14 @@ const ProductTable = () => {
             type="primary"
             icon={<EditOutlined />}
             onClick={() => handleClickEdit(record.id)}
+          />
+          <Button
+            type="primary"
+            icon={<EyeOutlined />}
+            title="View"
+            // onClick={() => {
+            //   handleClickView(record.id);
+            // }}
           />
           {!currentOrder && (
             <Button

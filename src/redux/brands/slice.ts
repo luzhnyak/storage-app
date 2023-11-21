@@ -2,7 +2,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getAllBrands, getBrandById, removeBrand } from "./operations";
-import { IBrand } from "../../types/index";
+import { IBrand } from "../../types/types";
 
 interface IInitialState {
   items: IBrand[];

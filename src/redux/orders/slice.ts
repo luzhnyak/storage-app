@@ -8,7 +8,7 @@ import {
   addOrder,
   addOrderProduct,
 } from "./operations";
-import { IOrder, IOrderProduct } from "../../types/index";
+import { IOrder, IOrderProduct } from "../../types/types";
 
 interface IInitialState {
   items: IOrder[];

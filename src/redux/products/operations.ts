@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IQueryProducts } from "../../types";
+import { IQueryProducts } from "../../types/types";
 
 axios.defaults.baseURL = "https://storage-api-hpsd.onrender.com/api/";
 

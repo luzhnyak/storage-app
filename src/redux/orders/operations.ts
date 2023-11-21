@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IOrder, IOrderProduct } from "../../types";
+import { IOrderProduct } from "../../types/types";
 
 axios.defaults.baseURL = "https://storage-api-hpsd.onrender.com/api/";
 
@@ -46,7 +46,10 @@ export const addOrder = createAsyncThunk(
 
 export const addOrderProduct = createAsyncThunk(
   "orders/addOrderProduct",
-  async (newOrderProduct: Omit<IOrderProduct, "id">, { rejectWithValue }) => {
+  async (
+    newOrderProduct: Omit<IOrderProduct, "id" | "name">,
+    { rejectWithValue }
+  ) => {
     try {
       const { data } = await axios.post(`orders/${newOrderProduct.order_id}`, {
         product_id: newOrderProduct.product_id,

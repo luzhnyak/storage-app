@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Flex } from "antd";
 import { useDispatch } from "react-redux";
 import { addOrder } from "../../redux/orders/operations";
-import { IOrder } from "../../types";
 import { AppDispatch } from "../../redux/store";
 
 const OrdersTools: React.FC = () => {

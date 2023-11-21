@@ -6,7 +6,7 @@ import {
   getCategoryById,
   removeCategory,
 } from "./operations";
-import { ICategory } from "../../types/index";
+import { ICategory } from "../../types/types";
 
 interface IInitialState {
   items: ICategory[];

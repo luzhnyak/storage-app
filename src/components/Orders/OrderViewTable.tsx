@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 import { Button, Popconfirm, Space, Table } from "antd";
-import { selectCategory } from "../../redux/categories/selectors";
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 import type { ColumnsType } from "antd/es/table";
 
-import { CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { selectAllOrders, selectOrder } from "../../redux/orders/selectors";
+import { selectOrder } from "../../redux/orders/selectors";
 
 interface DataType {
   key: string;
@@ -17,7 +14,7 @@ interface DataType {
 }
 
 const OrderViewTable = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   const currentOrder = useSelector(selectOrder);
 
@@ -29,9 +26,9 @@ const OrderViewTable = () => {
       width: 80,
     },
     {
-      title: "Product id",
-      dataIndex: "product_id",
-      key: "product_id",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Quantity",
@@ -48,39 +45,39 @@ const OrderViewTable = () => {
       dataIndex: "suma",
       key: "suma",
     },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (_: any, record: DataType) => (
-    //     <Space size="middle">
-    //       <Popconfirm
-    //         title="Delete the product"
-    //         description="Are you sure to delete this product?"
-    //         // onConfirm={() => dispatch(removeOrder(record.id))}
-    //         okText="Yes"
-    //         cancelText="No"
-    //       >
-    //         <Button type="primary" icon={<CloseOutlined />} />
-    //       </Popconfirm>
+    {
+      title: "Action",
+      key: "action",
+      render: (_: any, record: DataType) => (
+        <Space size="middle">
+          <Popconfirm
+            title="Delete the product"
+            description="Are you sure to delete this product?"
+            // onConfirm={() => dispatch(remove removeOrder(record.id))}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" icon={<CloseOutlined />} />
+          </Popconfirm>
 
-    //       <Button
-    //         type="primary"
-    //         icon={<EditOutlined />}
-    //         // onClick={}
-    //       />
-    //     </Space>
-    //   ),
-    // },
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            // onClick={}
+          />
+        </Space>
+      ),
+    },
   ];
 
   if (!currentOrder?.order_products) return <>None</>;
 
   const dataSource = currentOrder?.order_products.map(
-    ({ id, product_id, quantity, price }) => {
+    ({ product_id, name, quantity, price }) => {
       return {
-        key: id,
-        id,
-        product_id,
+        key: product_id,
+        id: product_id,
+        name,
         quantity,
         price,
         suma: quantity * price,

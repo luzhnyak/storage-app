@@ -1,9 +1,10 @@
-import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useState } from "react";
+import { Button, Flex, Form, Input, Modal, Select } from "antd";
+import React from "react";
 import { selectProduct } from "../../redux/products/selectors";
 import { useSelector } from "react-redux";
 import TextArea from "antd/es/input/TextArea";
 import { selectAllCategories } from "../../redux/categories/selectors";
+import { selectAllBrands } from "../../redux/brands/selectors";
 
 interface IProductEditModalProps {
   isModalEditShow: boolean;
@@ -14,13 +15,13 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
   isModalEditShow,
   setIsModalEditShow,
 }) => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-  const currentProduct = useSelector(selectProduct);
   const categories = useSelector(selectAllCategories);
+  const brands = useSelector(selectAllBrands);
+  const currentProduct = useSelector(selectProduct);
 
-  const showModal = () => {
-    setIsModalEditShow(true);
-  };
+  // const showModal = () => {
+  //   setIsModalEditShow(true);
+  // };
 
   const handleOk = () => {
     setIsModalEditShow(false);
@@ -56,20 +57,32 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Category" name="category_id">
-          <Select
-            defaultValue="lucy"
-            // style={{ width: 120 }}
-            // onChange={handleChange}
-            options={categories.map((category) => {
-              return { value: category.id, label: category.name };
-            })}
-          />
-        </Form.Item>
+        <Flex gap={20}>
+          <Form.Item label="Category" name="category_id">
+            <Select
+              // defaultValue="lucy"
+              // style={{ width: 120 }}
+              // onChange={handleChange}
+              options={categories.map((category) => {
+                return { value: category.id, label: category.name };
+              })}
+            />
+          </Form.Item>
+          <Form.Item label="Brand" name="brand_id">
+            <Select
+              // defaultValue="lucy"
+              // style={{ width: 120 }}
+              // onChange={handleChange}
+              options={brands.map((brand) => {
+                return { value: brand.id, label: brand.name };
+              })}
+            />
+          </Form.Item>
+        </Flex>
         <Form.Item label="SKU" name="sku">
           <Input />
         </Form.Item>
-        <Form.Item label="Vendor" name="vendor">
+        <Form.Item label="Country" name="country">
           <Input />
         </Form.Item>
 

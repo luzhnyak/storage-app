@@ -6,7 +6,7 @@ import { AppDispatch } from "../../redux/store";
 import { Tree, TreeProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 // import { DataNode } from "antd/es/tree";
-import { ICategory } from "../../types";
+import { ICategory } from "../../types/types";
 import { setCurrentCategory } from "../../redux/categories/slice";
 
 const treeData = (items: ICategory[]) => {

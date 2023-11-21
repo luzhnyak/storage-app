@@ -2,7 +2,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getAllProducts, getProductById, removeProduct } from "./operations";
-import { IProduct } from "../../types/index";
+import { IProduct } from "../../types/types";
 
 interface IInitialState {
   items: IProduct[];

@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import {
-  getAllProducts,
-  getProductById,
-  removeProduct,
-} from "../../redux/products/operations";
-import { selectAllProducts } from "../../redux/products/selectors";
+
 import { Button, Popconfirm, Space, Table } from "antd";
-import { selectCategory } from "../../redux/categories/selectors";
-import { IProduct } from "../../types";
+
 import type { ColumnsType } from "antd/es/table";
 
 import { CloseOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { setCurrentProduct } from "../../redux/products/slice";
+
 import {
   getAllOrders,
   getOrderById,
@@ -35,7 +29,7 @@ const OrdersTable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const orders = useSelector(selectAllOrders);
 
-  const currentOrder = useSelector(selectCategory);
+  // const currentOrder = useSelector(selectCategory);
 
   useEffect(() => {
     dispatch(getAllOrders());
