@@ -1,11 +1,9 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
-import { selectProduct } from "../../redux/products/selectors";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectOrder } from "../../redux/orders/selectors";
 import OrderViewTable from "./OrderViewTable";
-import { idText } from "typescript";
 
 interface IOrderViewModalProps {
   isModalViewShow: boolean;
@@ -18,12 +16,12 @@ const OrderViewModal: React.FC<IOrderViewModalProps> = ({
 }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentProduct = useSelector(selectProduct);
+  // const currentProduct = useSelector(selectProduct);
   const currentOrder = useSelector(selectOrder);
 
-  const showModal = () => {
-    setIsModalViewShow(true);
-  };
+  // const showModal = () => {
+  //   setIsModalViewShow(true);
+  // };
 
   const handleOk = () => {
     setIsModalViewShow(false);
@@ -33,9 +31,9 @@ const OrderViewModal: React.FC<IOrderViewModalProps> = ({
     setIsModalViewShow(false);
   };
 
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
+  // const onFinish = (values: any) => {
+  //   console.log(values);
+  // };
 
   return (
     <Modal
