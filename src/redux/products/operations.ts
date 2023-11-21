@@ -1,16 +1,12 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IQueryProducts } from "../../types";
 
 axios.defaults.baseURL = "https://storage-api-hpsd.onrender.com/api/";
 
-interface IQuery {
-  category_id: number;
-  page: number;
-}
-
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
-  async (query: IQuery, { rejectWithValue }) => {
+  async (query: IQueryProducts, { rejectWithValue }) => {
     try {
       const { data } = await axios(
         `products?category_id=${query.category_id}&page=0`

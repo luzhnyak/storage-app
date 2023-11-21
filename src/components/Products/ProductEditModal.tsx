@@ -18,8 +18,6 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
   const currentProduct = useSelector(selectProduct);
   const categories = useSelector(selectAllCategories);
 
-  console.log(categories);
-
   const showModal = () => {
     setIsModalEditShow(true);
   };

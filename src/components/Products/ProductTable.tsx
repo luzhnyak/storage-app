@@ -9,12 +9,14 @@ import {
 import { selectAllProducts } from "../../redux/products/selectors";
 import { Button, Popconfirm, Space, Table } from "antd";
 import { selectCategory } from "../../redux/categories/selectors";
-import { IProduct } from "../../types";
+import { IOrderProduct, IProduct, IQueryProducts } from "../../types";
 import type { ColumnsType } from "antd/es/table";
 
-import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import { CloseOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { setCurrentProduct } from "../../redux/products/slice";
 import ProductEditModal from "./ProductEditModal";
+import { addOrderProduct } from "../../redux/orders/operations";
+import { selectOrder } from "../../redux/orders/selectors";
 
 interface DataType {
   key: string;
@@ -29,12 +31,38 @@ const ProductTable = () => {
   const products = useSelector(selectAllProducts);
 
   const currentCategory = useSelector(selectCategory);
+  const currentOrder = useSelector(selectOrder);
 
   useEffect(() => {
-    dispatch(
-      getAllProducts({ category_id: Number(currentCategory?.id), page: 0 })
-    );
+    if (!currentCategory) return;
+
+    const newQuery: IQueryProducts = {
+      page: 0,
+      category_id: currentCategory.id,
+    };
+
+    dispatch(getAllProducts(newQuery));
   }, [dispatch, currentCategory]);
+
+  const handleClickEdit = async (id: number) => {
+    const product = await dispatch(getProductById(id)).unwrap();
+    dispatch(setCurrentProduct(product));
+    setIsModalEditShow(true);
+  };
+
+  const handleClickAddToOrder = async (id: number) => {
+    if (!currentOrder) return;
+
+    const newOrderProduct: Omit<IOrderProduct, "id"> = {
+      order_id: currentOrder.id,
+      product_id: id,
+      quantity: 1,
+      price: 1,
+    };
+
+    const product = await dispatch(addOrderProduct(newOrderProduct)).unwrap();
+    dispatch(setCurrentProduct(product));
+  };
 
   const columns: ColumnsType<any> = [
     {
@@ -66,18 +94,18 @@ const ProductTable = () => {
           >
             <Button type="primary" icon={<CloseOutlined />} />
           </Popconfirm>
-
           <Button
             type="primary"
             icon={<EditOutlined />}
-            onClick={async () => {
-              const product = await dispatch(
-                getProductById(record.id)
-              ).unwrap();
-              dispatch(setCurrentProduct(product));
-              setIsModalEditShow(true);
-            }}
+            onClick={() => handleClickEdit(record.id)}
           />
+          {!currentOrder && (
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => handleClickAddToOrder(record.id)}
+            />
+          )}
         </Space>
       ),
     },

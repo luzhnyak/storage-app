@@ -31,7 +31,7 @@ export const removeBrand = createAsyncThunk(
   "brands/removeBrand",
   async (brandId: number, { rejectWithValue }) => {
     try {
-      await axios.delete(`categories/${brandId}`);
+      await axios.delete(`brands/${brandId}`);
       return brandId;
     } catch (error) {
       return rejectWithValue(error);
