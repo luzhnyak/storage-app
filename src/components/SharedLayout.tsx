@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-import { Footer, Header } from "antd/es/layout/layout";
+import { Header } from "antd/es/layout/layout";
 
 import AppBar from "./AppBar/AppBar";
+import AppFooter from "./Footer/AppFooter";
 
 export function SharedLayout() {
   return (
@@ -11,7 +12,7 @@ export function SharedLayout() {
         <AppBar />
       </Header>
       <Outlet />
-      <Footer>Footer</Footer>
+      <AppFooter />
     </Layout>
   );
 }

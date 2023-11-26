@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Popconfirm, Space, Table } from "antd";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
@@ -6,6 +6,8 @@ import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 
 import { selectOrder } from "../../redux/orders/selectors";
+import { removeOrderProduct } from "../../redux/orders/operations";
+import { AppDispatch } from "../../redux/store";
 
 interface DataType {
   key: string;
@@ -14,9 +16,17 @@ interface DataType {
 }
 
 const OrderViewTable = () => {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const currentOrder = useSelector(selectOrder);
+
+  const handleDelete = (productId: number) => {
+    if (!currentOrder) return;
+
+    dispatch(
+      removeOrderProduct({ orderId: currentOrder.id, productId: productId })
+    );
+  };
 
   const columns: ColumnsType<any> = [
     {
@@ -53,7 +63,7 @@ const OrderViewTable = () => {
           <Popconfirm
             title="Delete the product"
             description="Are you sure to delete this product?"
-            // onConfirm={() => dispatch(remove removeOrder(record.id))}
+            onConfirm={() => handleDelete(record.id)}
             okText="Yes"
             cancelText="No"
           >

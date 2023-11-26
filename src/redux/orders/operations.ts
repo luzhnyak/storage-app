@@ -63,6 +63,20 @@ export const addOrderProduct = createAsyncThunk(
   }
 );
 
+export const removeOrderProduct = createAsyncThunk(
+  "orders/removeOrderProduct",
+  async (ids: { orderId: number; productId: number }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(
+        `orders/${ids.orderId}/${ids.productId}`
+      );
+      return data.id;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const removeOrder = createAsyncThunk(
   "orders/removeOrder",
   async (OrderId: number, { rejectWithValue }) => {

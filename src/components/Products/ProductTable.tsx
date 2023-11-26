@@ -22,6 +22,7 @@ import { setCurrentProduct } from "../../redux/products/slice";
 import ProductEditModal from "./ProductEditModal";
 import { addOrderProduct } from "../../redux/orders/operations";
 import { selectOrder } from "../../redux/orders/selectors";
+import ProductAddToOrderModal from "./ProductAddToOrderModal";
 
 interface DataType {
   key: string;
@@ -32,6 +33,7 @@ interface DataType {
 
 const ProductTable = () => {
   const [isModalEditShow, setIsModalEditShow] = useState(false);
+  const [isModalAddShow, setIsModalAddShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(selectAllProducts);
 
@@ -50,23 +52,15 @@ const ProductTable = () => {
   }, [dispatch, currentCategory]);
 
   const handleClickEdit = async (id: number) => {
-    const product = await dispatch(getProductById(id)).unwrap();
-    dispatch(setCurrentProduct(product));
+    await dispatch(getProductById(id));
+    // dispatch(setCurrentProduct(product));
     setIsModalEditShow(true);
   };
 
-  const handleClickAddToOrder = async (id: number) => {
-    if (!currentOrder) return;
-
-    const newOrderProduct: Omit<IOrderProduct, "id" | "name"> = {
-      order_id: currentOrder.id,
-      product_id: id,
-      quantity: 1,
-      price: 1,
-    };
-
-    const product = await dispatch(addOrderProduct(newOrderProduct)).unwrap();
-    dispatch(setCurrentProduct(product));
+  const handleClickAdd = async (id: number) => {
+    await dispatch(getProductById(id));
+    // dispatch(setCurrentProduct(product));
+    setIsModalAddShow(true);
   };
 
   const columns: ColumnsType<any> = [
@@ -109,14 +103,14 @@ const ProductTable = () => {
             icon={<EyeOutlined />}
             title="View"
             // onClick={() => {
-            //   handleClickView(record.id);
+            //   setIsModalAddShow(true);
             // }}
           />
-          {!currentOrder && (
+          {currentOrder && (
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => handleClickAddToOrder(record.id)}
+              onClick={() => handleClickAdd(record.id)}
             />
           )}
         </Space>
@@ -139,6 +133,10 @@ const ProductTable = () => {
       <ProductEditModal
         isModalEditShow={isModalEditShow}
         setIsModalEditShow={setIsModalEditShow}
+      />
+      <ProductAddToOrderModal
+        isModalAddShow={isModalAddShow}
+        setIsModalAddShow={setIsModalAddShow}
       />
     </>
   );
