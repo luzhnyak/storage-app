@@ -21,7 +21,7 @@ import {
 import { setCurrentProduct } from "../../redux/products/slice";
 import ProductEditModal from "./ProductEditModal";
 import { addOrderProduct } from "../../redux/orders/operations";
-import { selectOrder } from "../../redux/orders/selectors";
+import { selectCurrentOrder } from "../../redux/orders/selectors";
 import ProductAddToOrderModal from "./ProductAddToOrderModal";
 
 interface DataType {
@@ -38,7 +38,7 @@ const ProductTable = () => {
   const products = useSelector(selectAllProducts);
 
   const currentCategory = useSelector(selectCategory);
-  const currentOrder = useSelector(selectOrder);
+  const currentOrder = useSelector(selectCurrentOrder);
 
   useEffect(() => {
     if (!currentCategory) return;

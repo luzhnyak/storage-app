@@ -31,9 +31,9 @@ export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    setCurrentOrder(state, action) {
-      state.currentOrder = action.payload;
-    },
+    // setCurrentOrder(state, action) {
+    //   state.currentOrder = action.payload;
+    // },
   },
   extraReducers: (builder) =>
     builder
@@ -69,7 +69,7 @@ export const orderSlice = createSlice({
 
           state.currentOrder.order_products =
             state.currentOrder.order_products.filter(
-              ({ id }) => id !== action.payload
+              ({ product_id }) => product_id !== action.payload
             );
         }
       )
@@ -115,5 +115,5 @@ export const orderSlice = createSlice({
       ),
 });
 
-export const { setCurrentOrder } = orderSlice.actions;
+// export const { setCurrentOrder } = orderSlice.actions;
 export const OrderSliceReducer = orderSlice.reducer;

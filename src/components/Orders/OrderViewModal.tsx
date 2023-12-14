@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectOrder } from "../../redux/orders/selectors";
+import { selectCurrentOrder } from "../../redux/orders/selectors";
 import OrderViewTable from "./OrderViewTable";
 
 interface IOrderViewModalProps {
@@ -17,7 +17,7 @@ const OrderViewModal: React.FC<IOrderViewModalProps> = ({
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const currentProduct = useSelector(selectProduct);
-  const currentOrder = useSelector(selectOrder);
+  const currentOrder = useSelector(selectCurrentOrder);
 
   // const showModal = () => {
   //   setIsModalViewShow(true);

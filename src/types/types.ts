@@ -16,6 +16,7 @@ export interface IOrder {
   date_modified: number;
   comment?: string;
   order_products?: IOrderProduct[];
+  suma?: number;
 }
 
 export interface IOrderProduct {

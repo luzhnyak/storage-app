@@ -5,8 +5,11 @@ import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 import type { ColumnsType } from "antd/es/table";
 
-import { selectOrder } from "../../redux/orders/selectors";
-import { removeOrderProduct } from "../../redux/orders/operations";
+import { selectCurrentOrder } from "../../redux/orders/selectors";
+import {
+  getOrderById,
+  removeOrderProduct,
+} from "../../redux/orders/operations";
 import { AppDispatch } from "../../redux/store";
 
 interface DataType {
@@ -18,14 +21,16 @@ interface DataType {
 const OrderViewTable = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const currentOrder = useSelector(selectOrder);
+  const currentOrder = useSelector(selectCurrentOrder);
 
-  const handleDelete = (productId: number) => {
+  const handleDelete = async (productId: number) => {
     if (!currentOrder) return;
 
-    dispatch(
+    await dispatch(
       removeOrderProduct({ orderId: currentOrder.id, productId: productId })
     );
+
+    // await dispatch(getOrderById(currentOrder.id));
   };
 
   const columns: ColumnsType<any> = [

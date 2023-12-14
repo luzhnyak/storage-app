@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IOrderProduct } from "../../types/types";
+import { BASE_API_URL } from "../../constants";
 
-axios.defaults.baseURL = "https://storage-api-hpsd.onrender.com/api/";
+axios.defaults.baseURL = `${BASE_API_URL}/api/`;
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
@@ -70,7 +71,8 @@ export const removeOrderProduct = createAsyncThunk(
       const { data } = await axios.delete(
         `orders/${ids.orderId}/${ids.productId}`
       );
-      return data.id;
+
+      return ids.productId;
     } catch (error) {
       return rejectWithValue(error);
     }

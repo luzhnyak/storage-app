@@ -9,7 +9,6 @@ const OrdersPage = () => {
     <Layout>
       <OrdersTools />
       <Layout hasSider>
-        <Sider width={300} color="white" theme="light"></Sider>
         <Content>
           <OrdersTable />
         </Content>

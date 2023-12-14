@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IQueryProducts } from "../../types/types";
+import { BASE_API_URL } from "../../constants";
 
-axios.defaults.baseURL = "https://storage-api-hpsd.onrender.com/api/";
+axios.defaults.baseURL = `${BASE_API_URL}/api/`;
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",

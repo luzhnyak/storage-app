@@ -2,7 +2,7 @@ import { Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { selectProduct } from "../../redux/products/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { selectOrder } from "../../redux/orders/selectors";
+import { selectCurrentOrder } from "../../redux/orders/selectors";
 import { AppDispatch } from "../../redux/store";
 import { IOrderProduct } from "../../types/types";
 import { addOrderProduct } from "../../redux/orders/operations";
@@ -19,7 +19,7 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch<AppDispatch>();
   const currentProduct = useSelector(selectProduct);
-  const currentOrder = useSelector(selectOrder);
+  const currentOrder = useSelector(selectCurrentOrder);
 
   useEffect(() => {
     const addProduct = currentOrder?.order_products?.find(

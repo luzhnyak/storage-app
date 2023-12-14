@@ -8,7 +8,7 @@ import ProductTable from "../components/Products/ProductTable";
 const CatalogPage = () => {
   return (
     <Layout hasSider>
-      <Sider breakpoint="xs" width={400} color="white" theme="light">
+      <Sider breakpoint="xs" width={300} color="white" theme="light">
         <CategoriesTree />
       </Sider>
       <Content>

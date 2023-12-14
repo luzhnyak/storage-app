@@ -14,7 +14,7 @@ import {
   removeOrder,
 } from "../../redux/orders/operations";
 import { selectAllOrders } from "../../redux/orders/selectors";
-import { setCurrentOrder } from "../../redux/orders/slice";
+// import { setCurrentOrder } from "../../redux/orders/slice";
 import OrderViewModal from "./OrderViewModal";
 
 interface DataType {
@@ -36,9 +36,9 @@ const OrdersTable = () => {
   }, [dispatch]);
 
   const handleClickView = async (id: number) => {
-    const order = await dispatch(getOrderById(id)).unwrap();
+    await dispatch(getOrderById(id));
 
-    dispatch(setCurrentOrder(order));
+    // dispatch(setCurrentOrder(order));
 
     setIsModalViewShow(true);
   };
@@ -116,9 +116,28 @@ const OrdersTable = () => {
     };
   });
 
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
+      dispatch(getOrderById(selectedRows[0].id));
+    },
+    // getCheckboxProps: (record: any) => ({
+    //   disabled: record.name === "Disabled User", // Column configuration not to be checked
+    //   name: record.id,
+    // }),
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dataSource} size="small" />
+      <Table
+        size="small"
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={dataSource}
+      />
       <OrderViewModal
         isModalViewShow={isModalViewShow}
         setIsModalViewShow={setIsModalViewShow}
