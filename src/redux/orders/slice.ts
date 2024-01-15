@@ -77,7 +77,12 @@ export const orderSlice = createSlice({
         addOrderProduct.fulfilled,
         (state, action: PayloadAction<IOrderProduct>) => {
           if (state.currentOrder?.order_products) {
-            state.currentOrder?.order_products.push(action.payload);
+            state.currentOrder.order_products = [
+              ...state.currentOrder?.order_products.filter(
+                (product) => product.id !== action.payload.id
+              ),
+              action.payload,
+            ];
           }
         }
       )

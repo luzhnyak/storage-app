@@ -71,6 +71,11 @@ const OrdersTable = () => {
       key: "user_id",
     },
     {
+      title: "Suma",
+      dataIndex: "suma",
+      key: "suma",
+    },
+    {
       title: "Action",
       key: "action",
       render: (_: any, record: DataType) => (
@@ -111,6 +116,7 @@ const OrdersTable = () => {
       date_added: new Date(order.date_added).toLocaleString(),
       date_modified: new Date(order.date_modified).toLocaleString(),
       user_id: order.user_id,
+      suma: order.suma,
       contragent_id: order.contragent_id,
       comment: order.comment,
     };

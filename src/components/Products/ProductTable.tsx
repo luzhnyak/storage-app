@@ -9,7 +9,7 @@ import {
 import { selectAllProducts } from "../../redux/products/selectors";
 import { Button, Popconfirm, Space, Table } from "antd";
 import { selectCategory } from "../../redux/categories/selectors";
-import { IOrderProduct, IQueryProducts } from "../../types/types";
+import { IQueryProducts } from "../../types/types";
 import type { ColumnsType } from "antd/es/table";
 
 import {
@@ -18,9 +18,9 @@ import {
   EditOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { setCurrentProduct } from "../../redux/products/slice";
+
 import ProductEditModal from "./ProductEditModal";
-import { addOrderProduct } from "../../redux/orders/operations";
+
 import { selectCurrentOrder } from "../../redux/orders/selectors";
 import ProductAddToOrderModal from "./ProductAddToOrderModal";
 
@@ -53,7 +53,7 @@ const ProductTable = () => {
 
   const handleClickEdit = async (id: number) => {
     await dispatch(getProductById(id));
-    // dispatch(setCurrentProduct(product));
+
     setIsModalEditShow(true);
   };
 

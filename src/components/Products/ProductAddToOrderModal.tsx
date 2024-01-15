@@ -44,9 +44,7 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
   };
 
   const addProductToOrder = async () => {
-    console.log(currentProduct);
     if (!currentOrder || !currentProduct) return;
-    console.log("add");
 
     const newOrderProduct: Omit<IOrderProduct, "id" | "name"> = {
       order_id: currentOrder.id,
@@ -55,11 +53,8 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
       price: currentProduct.price,
     };
 
-    const product = await dispatch(addOrderProduct(newOrderProduct)).unwrap();
-    // dispatch(setCurrentProduct(product));
+    await dispatch(addOrderProduct(newOrderProduct));
   };
-
-  console.log(quantity);
 
   return (
     <Modal
