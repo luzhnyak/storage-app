@@ -9,8 +9,11 @@ import { selectCurrentOrder } from "../../redux/orders/selectors";
 import {
   getOrderById,
   removeOrderProduct,
+  updateOrderProduct,
 } from "../../redux/orders/operations";
 import { AppDispatch } from "../../redux/store";
+import { useState } from "react";
+import DialogInput from "../Dialog/DialogInput";
 
 interface DataType {
   key: string;
@@ -20,8 +23,28 @@ interface DataType {
 
 const OrderViewTable = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [productId, setProductId] = useState<number | null>(null);
 
   const currentOrder = useSelector(selectCurrentOrder);
+
+  const handleEdit = (productId: number) => {
+    if (!currentOrder) return;
+    setProductId(productId);
+    setIsShowEditModal(true);
+
+    // await dispatch(
+    //   updateOrderProduct({ orderId: currentOrder.id, productId: productId })
+    // );
+  };
+
+  const handleEditOk = async (quantity: string) => {
+    if (!currentOrder || !productId) return;
+
+    await dispatch(
+      updateOrderProduct({ orderId: currentOrder.id, productId: productId })
+    );
+  };
 
   const handleDelete = async (productId: number) => {
     if (!currentOrder) return;
@@ -78,7 +101,7 @@ const OrderViewTable = () => {
           <Button
             type="primary"
             icon={<EditOutlined />}
-            // onClick={}
+            onClick={() => handleEdit(record.id)}
           />
         </Space>
       ),
@@ -103,6 +126,12 @@ const OrderViewTable = () => {
   return (
     <>
       <Table columns={columns} dataSource={dataSource} size="small" />
+      <DialogInput
+        title="Edit product"
+        isShow={isShowEditModal}
+        setIsShow={setIsShowEditModal}
+        onOk={handleEditOk}
+      />
     </>
   );
 };

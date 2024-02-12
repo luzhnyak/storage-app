@@ -13,7 +13,10 @@ import {
   getOrderById,
   removeOrder,
 } from "../../redux/orders/operations";
-import { selectAllOrders } from "../../redux/orders/selectors";
+import {
+  selectAllOrders,
+  selectCurrentOrder,
+} from "../../redux/orders/selectors";
 // import { setCurrentOrder } from "../../redux/orders/slice";
 import OrderViewModal from "./OrderViewModal";
 
@@ -28,6 +31,7 @@ const OrdersTable = () => {
   const [isModalViewShow, setIsModalViewShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const orders = useSelector(selectAllOrders);
+  const currentOrder = useSelector(selectCurrentOrder);
 
   // const currentOrder = useSelector(selectCategory);
 
@@ -113,8 +117,8 @@ const OrdersTable = () => {
     return {
       key: order.id,
       id: order.id,
-      date_added: new Date(order.date_added).toLocaleString(),
-      date_modified: new Date(order.date_modified).toLocaleString(),
+      date_added: new Date(order.createdAt).toLocaleString(),
+      date_modified: new Date(order.updatedAt).toLocaleString(),
       user_id: order.user_id,
       suma: order.suma,
       contragent_id: order.contragent_id,
@@ -139,6 +143,7 @@ const OrdersTable = () => {
         size="small"
         rowSelection={{
           type: "radio",
+          defaultSelectedRowKeys: [currentOrder?.id || ""],
           ...rowSelection,
         }}
         columns={columns}

@@ -12,8 +12,8 @@ export interface IOrder {
   id: number;
   user_id: number;
   contragent_id: number;
-  date_added: number;
-  date_modified: number;
+  createdAt: Date;
+  updatedAt: Date;
   comment?: string;
   order_products?: IOrderProduct[];
   suma?: number;

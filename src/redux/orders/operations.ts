@@ -52,7 +52,7 @@ export const addOrderProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await axios.post(`orders/${newOrderProduct.order_id}`, {
+      const { data } = await axios.put(`orders/${newOrderProduct.order_id}`, {
         product_id: newOrderProduct.product_id,
         quantity: newOrderProduct.quantity,
         price: newOrderProduct.price,
@@ -64,13 +64,24 @@ export const addOrderProduct = createAsyncThunk(
   }
 );
 
+export const updateOrderProduct = createAsyncThunk(
+  "orders/updateOrderProduct",
+  async (ids: { orderId: number; productId: number }, { rejectWithValue }) => {
+    try {
+      await axios.patch(`orders/${ids.orderId}/${ids.productId}`);
+
+      return ids.productId;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const removeOrderProduct = createAsyncThunk(
   "orders/removeOrderProduct",
   async (ids: { orderId: number; productId: number }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(
-        `orders/${ids.orderId}/${ids.productId}`
-      );
+      await axios.delete(`orders/${ids.orderId}/${ids.productId}`);
 
       return ids.productId;
     } catch (error) {
