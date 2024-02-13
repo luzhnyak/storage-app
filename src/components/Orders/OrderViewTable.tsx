@@ -32,17 +32,17 @@ const OrderViewTable = () => {
     if (!currentOrder) return;
     setProductId(productId);
     setIsShowEditModal(true);
-
-    // await dispatch(
-    //   updateOrderProduct({ orderId: currentOrder.id, productId: productId })
-    // );
   };
 
   const handleEditOk = async (quantity: string) => {
     if (!currentOrder || !productId) return;
 
     await dispatch(
-      updateOrderProduct({ orderId: currentOrder.id, productId: productId })
+      updateOrderProduct({
+        orderId: currentOrder.id,
+        productId: productId,
+        quantity: Number(quantity),
+      })
     );
   };
 

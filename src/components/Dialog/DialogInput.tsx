@@ -13,6 +13,7 @@ const DialogInput: FC<IProps> = ({ title, isShow, setIsShow, onOk }) => {
 
   const handleOk = () => {
     onOk(value);
+    setIsShow(false);
   };
 
   const handleCancel = () => {

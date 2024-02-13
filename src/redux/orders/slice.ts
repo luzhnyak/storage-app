@@ -8,6 +8,7 @@ import {
   addOrder,
   addOrderProduct,
   removeOrderProduct,
+  updateOrderProduct,
 } from "./operations";
 import { IOrder, IOrderProduct } from "../../types/types";
 
@@ -75,6 +76,19 @@ export const orderSlice = createSlice({
       )
       .addCase(
         addOrderProduct.fulfilled,
+        (state, action: PayloadAction<IOrderProduct>) => {
+          if (state.currentOrder?.order_products) {
+            state.currentOrder.order_products = [
+              // ...state.currentOrder?.order_products.filter(
+              //   (product) => product.id !== action.payload.id
+              // ),
+              action.payload,
+            ];
+          }
+        }
+      )
+      .addCase(
+        updateOrderProduct.fulfilled,
         (state, action: PayloadAction<IOrderProduct>) => {
           if (state.currentOrder?.order_products) {
             state.currentOrder.order_products = [

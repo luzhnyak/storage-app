@@ -66,11 +66,19 @@ export const addOrderProduct = createAsyncThunk(
 
 export const updateOrderProduct = createAsyncThunk(
   "orders/updateOrderProduct",
-  async (ids: { orderId: number; productId: number }, { rejectWithValue }) => {
+  async (
+    ids: { orderId: number; productId: number; quantity: number },
+    { rejectWithValue }
+  ) => {
     try {
-      await axios.patch(`orders/${ids.orderId}/${ids.productId}`);
+      const { data } = await axios.patch(
+        `orders/${ids.orderId}/${ids.productId}`,
+        {
+          quantity: ids.quantity,
+        }
+      );
 
-      return ids.productId;
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
