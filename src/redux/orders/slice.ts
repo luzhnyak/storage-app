@@ -79,9 +79,9 @@ export const orderSlice = createSlice({
         (state, action: PayloadAction<IOrderProduct>) => {
           if (state.currentOrder?.order_products) {
             state.currentOrder.order_products = [
-              // ...state.currentOrder?.order_products.filter(
-              //   (product) => product.id !== action.payload.id
-              // ),
+              ...state.currentOrder?.order_products.filter(
+                (product) => product.id !== action.payload.id
+              ),
               action.payload,
             ];
           }
@@ -91,12 +91,13 @@ export const orderSlice = createSlice({
         updateOrderProduct.fulfilled,
         (state, action: PayloadAction<IOrderProduct>) => {
           if (state.currentOrder?.order_products) {
-            state.currentOrder.order_products = [
-              ...state.currentOrder?.order_products.filter(
-                (product) => product.id !== action.payload.id
-              ),
-              action.payload,
-            ];
+            const foundProduct = state.currentOrder.order_products.find(
+              (product) => product.id === action.payload.id
+            );
+
+            if (foundProduct) {
+              foundProduct.quantity = action.payload.quantity;
+            }
           }
         }
       )
