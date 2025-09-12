@@ -2,11 +2,12 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getAllProducts, getProductById, removeProduct } from "./operations";
-import { IProduct } from "../../types/types";
+import type { IProduct } from "../../types/types";
 
 interface IInitialState {
   items: IProduct[];
   isLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   currentProduct: IProduct | null;
 }

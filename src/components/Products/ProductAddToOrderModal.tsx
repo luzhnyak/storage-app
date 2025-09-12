@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { selectProduct } from "../../redux/products/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentOrder } from "../../redux/orders/selectors";
-import { AppDispatch } from "../../redux/store";
-import { IOrderProduct } from "../../types/types";
+import type { AppDispatch } from "../../redux/store";
+import type { IOrderProduct } from "../../types/types";
 import { addOrderProduct } from "../../redux/orders/operations";
 
 interface IProductAddModalProps {

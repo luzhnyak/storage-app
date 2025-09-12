@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 import {
   getAllProducts,
   getProductById,
@@ -9,7 +9,7 @@ import {
 import { selectAllProducts } from "../../redux/products/selectors";
 import { Button, Popconfirm, Space, Table } from "antd";
 import { selectCategory } from "../../redux/categories/selectors";
-import { IQueryProducts } from "../../types/types";
+import type { IQueryProducts } from "../../types/types";
 import type { ColumnsType } from "antd/es/table";
 
 import {

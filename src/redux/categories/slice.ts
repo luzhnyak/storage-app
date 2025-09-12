@@ -6,11 +6,12 @@ import {
   getCategoryById,
   removeCategory,
 } from "./operations";
-import { ICategory } from "../../types/types";
+import type { ICategory } from "../../types/types";
 
 interface IInitialState {
   items: ICategory[];
   isLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: Error | any;
   currentCategory: ICategory | null;
 }

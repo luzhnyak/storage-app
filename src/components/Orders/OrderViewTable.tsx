@@ -11,7 +11,7 @@ import {
   removeOrderProduct,
   updateOrderProduct,
 } from "../../redux/orders/operations";
-import { AppDispatch } from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 import { useState } from "react";
 import DialogInput from "../Dialog/DialogInput";
 

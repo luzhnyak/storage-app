@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/categories/operations";
 import { selectAllCategories } from "../../redux/categories/selectors";
-import { AppDispatch } from "../../redux/store";
-import { Tree, TreeProps } from "antd";
+import type { AppDispatch } from "../../redux/store";
+import { Tree } from "antd";
+import type { TreeProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 // import { DataNode } from "antd/es/tree";
-import { ICategory } from "../../types/types";
+import type { ICategory } from "../../types/types";
 import { setCurrentCategory } from "../../redux/categories/slice";
 
 const treeData = (items: ICategory[]) => {

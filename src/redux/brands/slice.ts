@@ -2,11 +2,12 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getAllBrands, getBrandById, removeBrand } from "./operations";
-import { IBrand } from "../../types/types";
+import type { IBrand } from "../../types/types";
 
 interface IInitialState {
   items: IBrand[];
   isLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: Error | any;
   currentBrand: IBrand | null;
 }

@@ -10,11 +10,12 @@ import {
   removeOrderProduct,
   updateOrderProduct,
 } from "./operations";
-import { IOrder, IOrderProduct } from "../../types/types";
+import type { IOrder, IOrderProduct } from "../../types/types";
 
 interface IInitialState {
   items: IOrder[];
   isLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: Error | any;
   currentOrder: IOrder | null;
   // currentOrderItems: IOrderProduct[];
@@ -79,6 +80,7 @@ export const orderSlice = createSlice({
         (state, action: PayloadAction<IOrderProduct>) => {
           if (state.currentOrder?.order_products) {
             state.currentOrder.order_products = [
+              // eslint-disable-next-line no-unsafe-optional-chaining
               ...state.currentOrder?.order_products.filter(
                 (product) => product.id !== action.payload.id
               ),

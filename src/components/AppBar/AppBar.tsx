@@ -1,4 +1,3 @@
-import React from "react";
 import AppMenu from "./AppMenu";
 
 const AppBar = () => {

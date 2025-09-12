@@ -1,4 +1,3 @@
-import React from "react";
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";

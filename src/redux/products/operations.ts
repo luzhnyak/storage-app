@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IQueryProducts } from "../../types/types";
+
 import { BASE_API_URL } from "../../constants";
+import type { IQueryProducts } from "../../types/types";
 
 axios.defaults.baseURL = `${BASE_API_URL}/api/`;
 

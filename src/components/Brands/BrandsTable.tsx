@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 import { getAllBrands } from "../../redux/brands/operations";
 import { selectAllBrands } from "../../redux/brands/selectors";
 import { Table } from "antd";

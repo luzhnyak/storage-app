@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState, type FC } from "react";
 import { Input, Modal } from "antd";
 
 interface IProps {
