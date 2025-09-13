@@ -71,7 +71,7 @@ export const orderSlice = createSlice({
 
           state.currentOrder.order_products =
             state.currentOrder.order_products.filter(
-              ({ product_id }) => product_id !== action.payload
+              ({ productId }) => productId !== action.payload
             );
         }
       )

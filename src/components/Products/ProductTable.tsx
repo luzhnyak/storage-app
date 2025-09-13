@@ -45,7 +45,7 @@ const ProductTable = () => {
 
     const newQuery: IQueryProducts = {
       page: 0,
-      category_id: currentCategory.id,
+      categoryId: currentCategory.id,
     };
 
     dispatch(getAllProducts(newQuery));

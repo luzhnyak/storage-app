@@ -11,7 +11,7 @@ export const getAllProducts = createAsyncThunk(
   async (query: IQueryProducts, { rejectWithValue }) => {
     try {
       const { data } = await axios(
-        `products?category_id=${query.category_id}&page=0`
+        `products?categoryId=${query.categoryId}&page=0`
       );
       return data;
     } catch (error) {

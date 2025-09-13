@@ -10,8 +10,8 @@ const OrdersTools: React.FC = () => {
   // const newOrder: IOrder = {
   //   date_added: 0,
   //   date_modified: 0,
-  //   user_id: 1,
-  //   contragent_id: 1,
+  //   userId: 1,
+  //   contragentId: 1,
   //   comment: "",
   // };
 

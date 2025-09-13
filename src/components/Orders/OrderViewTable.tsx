@@ -111,10 +111,10 @@ const OrderViewTable = () => {
   if (!currentOrder?.order_products) return <>None</>;
 
   const dataSource = currentOrder?.order_products.map(
-    ({ product_id, name, quantity, price }) => {
+    ({ productId, name, quantity, price }) => {
       return {
-        key: product_id,
-        id: product_id,
+        key: productId,
+        id: productId,
         name,
         quantity,
         price,

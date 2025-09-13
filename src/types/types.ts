@@ -10,8 +10,8 @@ export interface IBrand {
 
 export interface IOrder {
   id: number;
-  user_id: number;
-  contragent_id: number;
+  userId: number;
+  contragentId: number;
   createdAt: Date;
   updatedAt: Date;
   comment?: string;
@@ -21,9 +21,9 @@ export interface IOrder {
 
 export interface IOrderProduct {
   id: number;
-  order_id: number;
+  orderId: number;
   name: string;
-  product_id: number;
+  productId: number;
   quantity: number;
   price: number;
 }
@@ -33,11 +33,11 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
-  category_id: number;
+  categoryId: number;
   image: string;
 }
 
 export interface IQueryProducts {
-  category_id: number;
+  categoryId: number;
   page: number;
 }

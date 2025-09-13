@@ -34,8 +34,8 @@ export const addOrder = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`orders`, {
-        user_id: 1,
-        contragent_id: 1,
+        userId: 1,
+        contragentId: 1,
         comment: "test",
       });
       return data;
@@ -52,8 +52,8 @@ export const addOrderProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await axios.put(`orders/${newOrderProduct.order_id}`, {
-        product_id: newOrderProduct.product_id,
+      const { data } = await axios.put(`orders/${newOrderProduct.orderId}`, {
+        productId: newOrderProduct.productId,
         quantity: newOrderProduct.quantity,
         price: newOrderProduct.price,
       });

@@ -58,7 +58,7 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
           <Input />
         </Form.Item>
         <Flex gap={20}>
-          <Form.Item label="Category" name="category_id">
+          <Form.Item label="Category" name="categoryId">
             <Select
               // defaultValue="lucy"
               // style={{ width: 120 }}
@@ -68,7 +68,7 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
               })}
             />
           </Form.Item>
-          <Form.Item label="Brand" name="brand_id">
+          <Form.Item label="Brand" name="brandId">
             <Select
               // defaultValue="lucy"
               // style={{ width: 120 }}

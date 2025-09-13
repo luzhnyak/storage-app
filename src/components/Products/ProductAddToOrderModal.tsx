@@ -23,7 +23,7 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
 
   useEffect(() => {
     const addProduct = currentOrder?.order_products?.find(
-      (product) => product.product_id === currentProduct?.id
+      (product) => product.productId === currentProduct?.id
     );
 
     setQuantity(addProduct ? addProduct.quantity : 1);
@@ -47,8 +47,8 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
     if (!currentOrder || !currentProduct) return;
 
     const newOrderProduct: Omit<IOrderProduct, "id" | "name"> = {
-      order_id: currentOrder.id,
-      product_id: currentProduct.id,
+      orderId: currentOrder.id,
+      productId: currentProduct.id,
       quantity: quantity,
       price: currentProduct.price,
     };

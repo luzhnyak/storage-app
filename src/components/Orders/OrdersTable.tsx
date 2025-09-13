@@ -71,8 +71,8 @@ const OrdersTable = () => {
     },
     {
       title: "User",
-      dataIndex: "user_id",
-      key: "user_id",
+      dataIndex: "userId",
+      key: "userId",
     },
     {
       title: "Suma",
@@ -119,9 +119,9 @@ const OrdersTable = () => {
       id: order.id,
       date_added: new Date(order.createdAt).toLocaleString(),
       date_modified: new Date(order.updatedAt).toLocaleString(),
-      user_id: order.user_id,
+      userId: order.userId,
       suma: order.suma,
-      contragent_id: order.contragent_id,
+      contragentId: order.contragentId,
       comment: order.comment,
     };
   });
