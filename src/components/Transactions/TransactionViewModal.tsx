@@ -2,22 +2,22 @@ import { Modal } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectCurrentOrder } from "../../redux/orders/selectors";
-import OrderViewTable from "./OrderViewTable";
+import { selectCurrentTransaction } from "../../redux/transactions/selectors";
+import TransactionViewTable from "./TransactionViewTable";
 
-interface IOrderViewModalProps {
+interface ITransactionViewModalProps {
   isModalViewShow: boolean;
   setIsModalViewShow: (a: boolean) => void;
 }
 
-const OrderViewModal: React.FC<IOrderViewModalProps> = ({
+const TransactionViewModal: React.FC<ITransactionViewModalProps> = ({
   isModalViewShow,
   setIsModalViewShow,
 }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const currentProduct = useSelector(selectProduct);
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentTransaction = useSelector(selectCurrentTransaction);
 
   // const showModal = () => {
   //   setIsModalViewShow(true);
@@ -37,15 +37,15 @@ const OrderViewModal: React.FC<IOrderViewModalProps> = ({
 
   return (
     <Modal
-      title={`Order № ${currentOrder?.id}`}
+      title={`Transaction № ${currentTransaction?.id}`}
       open={isModalViewShow}
       onOk={handleOk}
       onCancel={handleCancel}
       width={800}
     >
-      <OrderViewTable />
+      <TransactionViewTable />
     </Modal>
   );
 };
 
-export default OrderViewModal;
+export default TransactionViewModal;

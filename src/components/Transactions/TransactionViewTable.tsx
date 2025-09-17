@@ -5,12 +5,12 @@ import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 import type { ColumnsType } from "antd/es/table";
 
-import { selectCurrentOrder } from "../../redux/orders/selectors";
+import { selectCurrentTransaction } from "../../redux/transactions/selectors";
 import {
-  getOrderById,
-  removeOrderProduct,
-  updateOrderProduct,
-} from "../../redux/orders/operations";
+  getTransactionById,
+  removeTransactionProduct,
+  updateTransactionProduct,
+} from "../../redux/transactions/operations";
 import type { AppDispatch } from "../../redux/store";
 import { useState } from "react";
 import DialogInput from "../Dialog/DialogInput";
@@ -21,25 +21,25 @@ interface DataType {
   name: string;
 }
 
-const OrderViewTable = () => {
+const TransactionViewTable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [productId, setProductId] = useState<number | null>(null);
 
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentTransaction = useSelector(selectCurrentTransaction);
 
   const handleEdit = (productId: number) => {
-    if (!currentOrder) return;
+    if (!currentTransaction) return;
     setProductId(productId);
     setIsShowEditModal(true);
   };
 
   const handleEditOk = async (quantity: string) => {
-    if (!currentOrder || !productId) return;
+    if (!currentTransaction || !productId) return;
 
     await dispatch(
-      updateOrderProduct({
-        orderId: currentOrder.id,
+      updateTransactionProduct({
+        transactionId: currentTransaction.id,
         productId: productId,
         quantity: Number(quantity),
       })
@@ -47,13 +47,16 @@ const OrderViewTable = () => {
   };
 
   const handleDelete = async (productId: number) => {
-    if (!currentOrder) return;
+    if (!currentTransaction) return;
 
     await dispatch(
-      removeOrderProduct({ orderId: currentOrder.id, productId: productId })
+      removeTransactionProduct({
+        transactionId: currentTransaction.id,
+        productId: productId,
+      })
     );
 
-    // await dispatch(getOrderById(currentOrder.id));
+    // await dispatch(getTransactionById(currentTransaction.id));
   };
 
   const columns: ColumnsType<any> = [
@@ -108,9 +111,9 @@ const OrderViewTable = () => {
     },
   ];
 
-  if (!currentOrder?.order_products) return <>None</>;
+  if (!currentTransaction?.transaction_products) return <>None</>;
 
-  const dataSource = currentOrder?.order_products.map(
+  const dataSource = currentTransaction?.transaction_products.map(
     ({ productId, name, quantity, price }) => {
       return {
         key: productId,
@@ -136,4 +139,4 @@ const OrderViewTable = () => {
   );
 };
 
-export default OrderViewTable;
+export default TransactionViewTable;

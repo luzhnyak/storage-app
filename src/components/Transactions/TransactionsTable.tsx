@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 
@@ -9,16 +9,16 @@ import type { ColumnsType } from "antd/es/table";
 import { CloseOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 
 import {
-  getAllOrders,
-  getOrderById,
-  removeOrder,
-} from "../../redux/orders/operations";
+  getAllTransactions,
+  getTransactionById,
+  removeTransaction,
+} from "../../redux/transactions/operations";
 import {
-  selectAllOrders,
-  selectCurrentOrder,
-} from "../../redux/orders/selectors";
-// import { setCurrentOrder } from "../../redux/orders/slice";
-import OrderViewModal from "./OrderViewModal";
+  selectAllTransactions,
+  selectCurrentTransaction,
+} from "../../redux/transactions/selectors";
+// import { setCurrentTransaction } from "../../redux/transactions/slice";
+import TransactionViewModal from "./TransactionViewModal";
 
 interface DataType {
   key: string;
@@ -27,22 +27,22 @@ interface DataType {
   price: number;
 }
 
-const OrdersTable = () => {
+const TransactionsTable = () => {
   const [isModalViewShow, setIsModalViewShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const orders = useSelector(selectAllOrders);
-  const currentOrder = useSelector(selectCurrentOrder);
+  const transactions = useSelector(selectAllTransactions);
+  const currentTransaction = useSelector(selectCurrentTransaction);
 
-  // const currentOrder = useSelector(selectCategory);
+  // const currentTransaction = useSelector(selectCategory);
 
   useEffect(() => {
-    dispatch(getAllOrders());
+    dispatch(getAllTransactions());
   }, [dispatch]);
 
   const handleClickView = async (id: number) => {
-    await dispatch(getOrderById(id));
+    await dispatch(getTransactionById(id));
 
-    // dispatch(setCurrentOrder(order));
+    // dispatch(setCurrentTransaction(transaction));
 
     setIsModalViewShow(true);
   };
@@ -85,9 +85,9 @@ const OrdersTable = () => {
       render: (_: any, record: DataType) => (
         <Space size="middle">
           <Popconfirm
-            title="Delete the order"
-            description="Are you sure to delete this order?"
-            onConfirm={() => dispatch(removeOrder(record.id))}
+            title="Delete the transaction"
+            description="Are you sure to delete this transaction?"
+            onConfirm={() => dispatch(removeTransaction(record.id))}
             okText="Yes"
             cancelText="No"
           >
@@ -113,23 +113,23 @@ const OrdersTable = () => {
     },
   ];
 
-  const dataSource = orders.map((order) => {
+  const dataSource = transactions.map((transaction) => {
     return {
-      key: order.id,
-      id: order.id,
-      date_added: new Date(order.createdAt).toLocaleString(),
-      date_modified: new Date(order.updatedAt).toLocaleString(),
-      userId: order.userId,
-      suma: order.suma,
-      contragentId: order.contragentId,
-      comment: order.comment,
+      key: transaction.id,
+      id: transaction.id,
+      date_added: new Date(transaction.createdAt).toLocaleString(),
+      date_modified: new Date(transaction.updatedAt).toLocaleString(),
+      userId: transaction.userId,
+      suma: transaction.suma,
+      contragentId: transaction.contragentId,
+      comment: transaction.comment,
     };
   });
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
-      dispatch(getOrderById(selectedRows[0].id));
+      dispatch(getTransactionById(selectedRows[0].id));
     },
     // getCheckboxProps: (record: any) => ({
     //   disabled: record.name === "Disabled User", // Column configuration not to be checked
@@ -143,13 +143,13 @@ const OrdersTable = () => {
         size="small"
         rowSelection={{
           type: "radio",
-          defaultSelectedRowKeys: [currentOrder?.id || ""],
+          defaultSelectedRowKeys: [currentTransaction?.id || ""],
           ...rowSelection,
         }}
         columns={columns}
         dataSource={dataSource}
       />
-      <OrderViewModal
+      <TransactionViewModal
         isModalViewShow={isModalViewShow}
         setIsModalViewShow={setIsModalViewShow}
       />
@@ -157,4 +157,4 @@ const OrdersTable = () => {
   );
 };
 
-export default OrdersTable;
+export default TransactionsTable;

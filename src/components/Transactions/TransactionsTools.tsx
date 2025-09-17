@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, Flex } from "antd";
 import { useDispatch } from "react-redux";
-import { addOrder } from "../../redux/orders/operations";
+import { addTransaction } from "../../redux/transactions/operations";
 import type { AppDispatch } from "../../redux/store";
 
-const OrdersTools: React.FC = () => {
+const TransactionsTools: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // const newOrder: IOrder = {
+  // const newTransaction: ITransaction = {
   //   date_added: 0,
   //   date_modified: 0,
   //   userId: 1,
@@ -16,7 +16,7 @@ const OrdersTools: React.FC = () => {
   // };
 
   const handleClickNew = () => {
-    dispatch(addOrder());
+    dispatch(addTransaction());
   };
 
   return (
@@ -31,4 +31,4 @@ const OrdersTools: React.FC = () => {
   );
 };
 
-export default OrdersTools;
+export default TransactionsTools;

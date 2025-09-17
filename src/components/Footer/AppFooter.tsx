@@ -1,9 +1,9 @@
 import { Footer } from "antd/es/layout/layout";
 import { useSelector } from "react-redux";
-import { selectCurrentOrder } from "../../redux/orders/selectors";
+import { selectCurrentTransaction } from "../../redux/transactions/selectors";
 
 const AppFooter = () => {
-  const selectedOrder = useSelector(selectCurrentOrder);
+  const selectedTransaction = useSelector(selectCurrentTransaction);
 
   return (
     <Footer
@@ -17,10 +17,10 @@ const AppFooter = () => {
       }}
     >
       <span>
-        <b>Order №</b>
-        {selectedOrder?.id}
+        <b>Transaction №</b>
+        {selectedTransaction?.id}
       </span>
-      <span>Suma: {selectedOrder?.suma} грн.</span>
+      <span>Suma: {selectedTransaction?.suma} грн.</span>
     </Footer>
   );
 };

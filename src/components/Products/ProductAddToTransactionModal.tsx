@@ -2,39 +2,39 @@ import { Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { selectProduct } from "../../redux/products/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentOrder } from "../../redux/orders/selectors";
+import { selectCurrentTransaction } from "../../redux/transactions/selectors";
 import type { AppDispatch } from "../../redux/store";
-import type { IOrderProduct } from "../../types/types";
-import { addOrderProduct } from "../../redux/orders/operations";
+import type { ITransactionProduct } from "../../types/types";
+import { addTransactionProduct } from "../../redux/transactions/operations";
 
 interface IProductAddModalProps {
   isModalAddShow: boolean;
   setIsModalAddShow: (a: boolean) => void;
 }
 
-const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
+const ProductAddToTransactionModal: React.FC<IProductAddModalProps> = ({
   isModalAddShow,
   setIsModalAddShow,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch<AppDispatch>();
   const currentProduct = useSelector(selectProduct);
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentTransaction = useSelector(selectCurrentTransaction);
 
   useEffect(() => {
-    const addProduct = currentOrder?.order_products?.find(
+    const addProduct = currentTransaction?.transaction_products?.find(
       (product) => product.productId === currentProduct?.id
     );
 
     setQuantity(addProduct ? addProduct.quantity : 1);
-  }, [currentProduct, currentOrder, isModalAddShow]);
+  }, [currentProduct, currentTransaction, isModalAddShow]);
 
   // const showModal = () => {
   //   setIsModalEditShow(true);
   // };
 
   const handleOk = () => {
-    addProductToOrder();
+    addProductToTransaction();
     setIsModalAddShow(false);
   };
 
@@ -43,22 +43,22 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
     setIsModalAddShow(false);
   };
 
-  const addProductToOrder = async () => {
-    if (!currentOrder || !currentProduct) return;
+  const addProductToTransaction = async () => {
+    if (!currentTransaction || !currentProduct) return;
 
-    const newOrderProduct: Omit<IOrderProduct, "id" | "name"> = {
-      orderId: currentOrder.id,
+    const newTransactionProduct: Omit<ITransactionProduct, "id" | "name"> = {
+      transactionId: currentTransaction.id,
       productId: currentProduct.id,
       quantity: quantity,
       price: currentProduct.price,
     };
 
-    await dispatch(addOrderProduct(newOrderProduct));
+    await dispatch(addTransactionProduct(newTransactionProduct));
   };
 
   return (
     <Modal
-      title="Add Product to order"
+      title="Add Product to transaction"
       open={isModalAddShow}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -72,4 +72,4 @@ const ProductAddToOrderModal: React.FC<IProductAddModalProps> = ({
   );
 };
 
-export default ProductAddToOrderModal;
+export default ProductAddToTransactionModal;

@@ -8,20 +8,20 @@ export interface IBrand {
   name: string;
 }
 
-export interface IOrder {
+export interface ITransaction {
   id: number;
   userId: number;
   contragentId: number;
   createdAt: Date;
   updatedAt: Date;
   comment?: string;
-  order_products?: IOrderProduct[];
+  transaction_products?: ITransactionProduct[];
   suma?: number;
 }
 
-export interface IOrderProduct {
+export interface ITransactionProduct {
   id: number;
-  orderId: number;
+  transactionId: number;
   name: string;
   productId: number;
   quantity: number;

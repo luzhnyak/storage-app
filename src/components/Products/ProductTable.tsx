@@ -21,8 +21,8 @@ import {
 
 import ProductEditModal from "./ProductEditModal";
 
-import { selectCurrentOrder } from "../../redux/orders/selectors";
-import ProductAddToOrderModal from "./ProductAddToOrderModal";
+import { selectCurrentTransaction } from "../../redux/transactions/selectors";
+import ProductAddToTransactionModal from "./ProductAddToTransactionModal";
 
 interface DataType {
   key: string;
@@ -38,7 +38,7 @@ const ProductTable = () => {
   const products = useSelector(selectAllProducts);
 
   const currentCategory = useSelector(selectCategory);
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentTransaction = useSelector(selectCurrentTransaction);
 
   useEffect(() => {
     if (!currentCategory) return;
@@ -106,7 +106,7 @@ const ProductTable = () => {
             //   setIsModalAddShow(true);
             // }}
           />
-          {currentOrder && (
+          {currentTransaction && (
             <Button
               type="primary"
               icon={<PlusOutlined />}
@@ -134,7 +134,7 @@ const ProductTable = () => {
         isModalEditShow={isModalEditShow}
         setIsModalEditShow={setIsModalEditShow}
       />
-      <ProductAddToOrderModal
+      <ProductAddToTransactionModal
         isModalAddShow={isModalAddShow}
         setIsModalAddShow={setIsModalAddShow}
       />

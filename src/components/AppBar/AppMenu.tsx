@@ -28,8 +28,8 @@ const items: MenuProps["items"] = [
     icon: <TagsFilled />,
   },
   {
-    label: <NavLink to={"/orders"}>Orders</NavLink>,
-    key: "orders",
+    label: <NavLink to={"/transactions"}>Transactions</NavLink>,
+    key: "transactions",
     icon: <ThunderboltFilled />,
   },
 ];
