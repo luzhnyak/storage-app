@@ -82,15 +82,14 @@ const ProductEditModal: React.FC<IProductEditModalProps> = ({
         <Form.Item label="SKU" name="sku">
           <Input />
         </Form.Item>
-        <Form.Item label="Country" name="country">
-          <Input />
-        </Form.Item>
-
         <Form.Item label="Price" name="price">
           <Input />
         </Form.Item>
-        <Form.Item label="Image" name="image">
-          <TextArea style={{ height: 120, resize: "none" }} />
+        <Form.Item label="Unit" name="unit">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Image" name="imageUrl">
+          <Input />
         </Form.Item>
         <Form.Item label="Description" name="description">
           <TextArea style={{ height: 120, resize: "none" }} />
